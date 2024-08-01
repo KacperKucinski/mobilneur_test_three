@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <title>Mobilneur - test 2</title>
+    <style>
+
+        /* Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        * {
+            margin: 0;
+            font: inherit;
+        }
+
+        body {
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img, picture, video, canvas, svg {
+            display: block;
+            max-width: 100%;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background-color: rgb(18,18,18);
+        }
+
+        
+        h1 {
+            position: absolute;
+            
+            top: 1.5rem;
+            left: 1.5rem;
+
+            font-family: "Roboto Condensed", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-style: normal;
+            font-size: 2.25rem;
+            color: rgb(240,240,240);
+            text-transform: uppercase;
+            line-height: 1;
+            margin:0 0 3rem 0;
+        }
+
+
+        .container {
+            height: 92vh;
+            display: flex;
+        }
+
+        .canvas-container {
+      
+        }
+
+        canvas {
+            margin-right: 0.25rem;
+            border: none; /* Remove border for a cleaner look */
+        }
+
+        .thumbnails-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .thumbnail-section {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 0.25rem;
+        }
+
+        .thumbnail-display {
+            box-sizing: content-box;
+
+            height: 15vh;
+            width: auto;
+     
+            margin-right: 0.25rem;
+            cursor: pointer;
+            opacity: 0.3; /* Indicate inactive layers with reduced opacity */
+            transition: opacity 0.3s;
+        }
+
+        .thumbnail-display.active {
+            opacity: 1;
+       
+        }
+        
+        .thumbnail-display.background {
+            opacity: 1;
+        }
+       
+
+        .radio-buttons {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .checker {
+            position: relative;
+        }
+
+        .checker input {
+            display: none;
+        }
+
+        .checkmark {
+            display: block;
+            height: 0.875rem;
+            width: 0.875rem;
+            border: 2px solid rgba(50,52,54, 0.3);
+            border-radius: 0.125rem;
+            transition: all 0.15s ease-in-out;
+        }
+
+        .checker input[type="radio"]:checked ~ .checkmark {
+            
+            border: 2px solid rgb(80,80,80);
+            background-color: rgb(80,80,80);
+        }
+
+
+        label {
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+        
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        button {
+            background: none;
+            color: inherit;
+            border: none;
+            padding: 0;
+            font: inherit;
+            cursor: pointer;
+            outline: inherit;
+
+            font-family: "Roboto Condensed", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-style: normal;
+            font-size: 0.75rem;
+            color: rgb(240,240,240);
+
+            margin-top: 0.5rem;
+
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="roboto-600">Mobilneur</h1>
+
+    <div class="container">
+        
+        <div class="canvas-container">
+            <canvas id="canvas"></canvas>
+            <button id="download">Ściągnij i zapisz</button>
+        </div>
+
+        <div class="thumbnails-container">
+            <div class="thumbnail-section" id="layer1-thumbnails">
+                <img id="layer1-thumbnail" class="thumbnail-display" src="image1.webp" alt="Layer 1 Thumbnail">
+                <div class="radio-buttons">
+                    <label class="checker"><input type="radio" name="layer1" value="image1.webp" checked><span class="checkmark"></span></label>
+                    <label class="checker"><input type="radio" name="layer1" value="image2.webp"><span class="checkmark"></span></label>
+                    <label class="checker"><input type="radio" name="layer1" value="image3.webp"><span class="checkmark"></span></label>
+                    <label class="checker"><input type="radio" name="layer1" value="image4.webp"><span class="checkmark"></span></label>
+                </div>
+            </div>
+
+            <div class="thumbnail-section" id="layer2-thumbnails">
+                <img id="layer2-thumbnail" class="thumbnail-display" src="image2.webp" alt="Layer 2 Thumbnail">
+                <div class="radio-buttons">
+                    <label class="checker"><input type="radio" name="layer2" value="image1.webp"><span class="checkmark"></label>
+                    <label class="checker"><input type="radio" name="layer2" value="image2.webp" checked><span class="checkmark"></label>
+                    <label class="checker"><input type="radio" name="layer2" value="image3.webp"><span class="checkmark"></label>
+                    <label class="checker"><input type="radio" name="layer2" value="image4.webp"><span class="checkmark"></label>
+                </div>
+            </div>
+
+            <div class="thumbnail-section" id="layer3-thumbnails">
+                <img id="layer3-thumbnail" class="thumbnail-display" src="image3.webp" alt="Layer 3 Thumbnail">
+                <div class="radio-buttons">
+                    <label class="checker"><input type="radio" name="layer3" value="image1.webp"><span class="checkmark"></span></label>
+                    <label class="checker"><input type="radio" name="layer3" value="image2.webp"><span class="checkmark"></label>
+                    <label class="checker"><input type="radio" name="layer3" value="image3.webp" checked><span class="checkmark"></label>
+                    <label class="checker"><input type="radio" name="layer3" value="image4.webp"><span class="checkmark"></label>
+                </div>
+            </div>
+
+            <div class="thumbnail-section" id="layer4-thumbnails">
+                <img id="layer4-thumbnail" class="thumbnail-display" src="image4.webp" alt="Layer 4 Thumbnail">
+                <div class="radio-buttons">
+                    <label class="checker"><input type="radio" name="layer4" value="image1.webp"><span class="checkmark"></label>
+                    <label class="checker"><input type="radio" name="layer4" value="image2.webp"><span class="checkmark"></label>
+                    <label class="checker"><input type="radio" name="layer4" value="image3.webp"><span class="checkmark"></label>
+                    <label class="checker"><input type="radio" name="layer4" value="image4.webp" checked><span class="checkmark"></label>
+                </div>
+            </div>
+
+            <div class="thumbnail-section" id="background-thumbnails">
+                <img id="background-thumbnail" class="thumbnail-display background" src="background1.webp" alt="Background Thumbnail">
+                <div class="radio-buttons">
+                    <label class="checker"><input type="radio" name="background" value="background1.webp" checked><span class="checkmark"></label>
+                    <label class="checker"><input type="radio" name="background" value="background2.webp"><span class="checkmark"></label>
+                    <label class="checker"><input type="radio" name="background" value="background3.webp"><span class="checkmark"></label>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Initialize layer states
+        const layers = {
+            layer1: { src: 'image1.webp', active: false },
+            layer2: { src: 'image2.webp', active: false },
+            layer3: { src: 'image3.webp', active: false },
+            layer4: { src: 'image4.webp', active: false },
+            background: { src: 'background1.webp', active: true } // Default background image active
+        };
+
+        // Cache images for performance
+        const imageCache = {};
+
+        // Preload all images
+        function preloadImages() {
+            const imageSources = [
+                'image1.webp', 'image2.webp', 'image3.webp', 'image4.webp',
+                'background1.webp', 'background2.webp', 'background3.webp'
+            ];
+            imageSources.forEach(src => {
+                const img = new Image();
+                img.src = src;
+                imageCache[src] = img;
+            });
+        }
+
+        preloadImages();
+
+        // Set canvas size based on screen height and aspect ratio
+        function setCanvasSize() {
+            const screenHeight = window.innerHeight;
+            const canvasHeight = screenHeight * 0.9;
+            const aspectRatio = 1 / 2;
+            const canvasWidth = canvasHeight * aspectRatio;
+            
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
+
+            drawCanvas(); // Redraw the canvas after resizing
+        }
+
+        // Draw the canvas with the selected layers
+        function drawCanvas() {
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw background first
+            if (layers.background.active) {
+                const bgImg = imageCache[layers.background.src];
+                if (bgImg) {
+                    ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
+                }
+            }
+
+            // Draw other layers on top of the background
+            ['layer1', 'layer2', 'layer3', 'layer4'].forEach(layer => {
+                if (layers[layer].active) {
+                    const img = imageCache[layers[layer].src];
+                    if (img) {
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    }
+                }
+            });
+        }
+
+        // Update thumbnail display and canvas drawing
+        function updateLayer(layer, src, active) {
+            layers[layer].src = src;
+            layers[layer].active = active;
+            const thumbnail = document.getElementById(`${layer}-thumbnail`);
+            if (thumbnail) {
+                thumbnail.src = src;
+                thumbnail.classList.toggle('active', active);
+            }
+            drawCanvas();
+        }
+
+        // Handle thumbnail clicks
+        document.querySelectorAll('.thumbnail-display').forEach(thumbnail => {
+            thumbnail.addEventListener('click', function() {
+                const layer = this.id.split('-')[0];
+                if (layer === 'background') return; // Background cannot be toggled
+
+                const isActive = layers[layer].active;
+                layers[layer].active = !isActive;
+                this.classList.toggle('active', !isActive);
+                this.classList.toggle('inactive', isActive);
+                drawCanvas();
+            });
+        });
+
+        // Handle radio button changes
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const layer = this.name;
+                const src = this.value;
+                const isActive = layer === 'background' || layers[layer].active;
+                updateLayer(layer, src, isActive);
+            });
+        });
+
+        // Add event listener to download button
+        document.getElementById('download').addEventListener('click', function() {
+            const link = document.createElement('a');
+            link.download = 'composed_image.jpg';
+            link.href = canvas.toDataURL('image/jpeg');
+            link.click();
+        });
+
+        // Initial setup
+        window.addEventListener('resize', setCanvasSize); // Adjust canvas on window resize
+        setCanvasSize(); // Initial canvas size setup
+    </script>
+</body>
+</html>
